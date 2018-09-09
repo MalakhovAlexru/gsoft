@@ -59,31 +59,57 @@
 
             try {
                 $(window).on("mouseover", (document) => {
-                    $(".circle").each(function (i) {
-                        const dw = $(".circle:eq(" + i + ")").width() / 2;
-                        const x0 = +$(".circle:eq(" + i + ")").data("x") + dw,
-                            y0 = +$(".circle:eq(" + i + ")").data("y") + dw,
-                            dx = document.clientX - x0,
-                            dy = document.clientY - y0;
-                        $(".circle:eq(" + i + ")").removeClass("transition");
-                        return setTimeout(function () {
-                            return Math.sqrt(dx * dx + dy * dy) < $(".circle:eq(" + i +
-                                    ")").width() ?
-                                (function () {
-                                    $(".circle:eq(" + i + ")").css({
-                                        left: x0 - dx - dw + "px",
-                                        top: y0 - dy - dw + "px"
-                                    });
-                                })() : (function () {
-                                    $(".circle:eq(" + i + ")").addClass(
-                                        "transition");
-                                    $(".circle:eq(" + i + ")").css({
-                                        left: x0 - dw + "px",
-                                        top: y0 - dw + "px"
-                                    });
-                                })();
-                        }, i);
-                    });
+                    $(".circle").hover(function () {
+                            let El = $(this);
+                            const dw = El.width() / 2;
+                            const x0 = El.data("x") + dw,
+                                y0 = El.data("y") + dw,
+                                dx = document.clientX - x0,
+                                dy = document.clientY - y0;
+                            //блок логов
+                            // console.log("Y " + $(this).data("y"));
+                            // console.log("X " + $(this).data("x"));
+                            // console.log("wight " + $(this).width() / 2);
+                            // console.log("DX " + dx);
+                            // console.log("DY " + dy);
+
+                            El.removeClass("transition");
+
+                            return setTimeout(function () {
+                                // console.log("ЦШВПРН" + El.width());
+
+                                // console.log("X0 " + x0);
+                                // // console.log("X " + $(this).data("x"));
+                                // // console.log("wight " + $(this).width() / 2);
+                                // console.log("DX " + dx);
+                                // console.log("DY " + dy);
+
+                                return Math.sqrt(dx * dx + dy * dy) < El.width() ?
+                                    (function () {
+                                        El.css({
+                                            left: x0 - dx - dw + "px",
+                                            top: y0 - dy - dw + "px"
+                                        });
+                                    })() : (function () {
+
+                                        El.addClass("transition");
+                                        El.css({
+                                            left: x0 - dw + "px",
+                                            top: y0 - dw + "px"
+                                        });
+                                    })();
+
+                            }, 15);
+                        },
+                        function () {
+                            let El = $(this);
+                            const x0 = El.data("x"),
+                                y0 = El.data("y");
+                            El.css({
+                                left: x0 + "px",
+                                top: y0 + "px"
+                            });
+                        })
                 });
             } catch (window) {
                 if (window) {
