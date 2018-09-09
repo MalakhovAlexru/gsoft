@@ -44,7 +44,6 @@
         crossorigin="anonymous"></script>
     <script>
         // Оптимизируйте и приведите код в порядок
-
         $(document).ready(() => {
             for (var x = 0; x < $("body").width(); x += 60) {
                 for (var y = 0; y < $("body").height(); y += 60) {
@@ -57,52 +56,35 @@
                 }
             }
 
+            let El;
             try {
                 $(window).on("mouseover", (document) => {
                     $(".circle").hover(function () {
-                            let El = $(this);
+                            El = $(this);
                             const dw = El.width() / 2;
                             const x0 = El.data("x") + dw,
                                 y0 = El.data("y") + dw,
                                 dx = document.clientX - x0,
                                 dy = document.clientY - y0;
-                            //блок логов
-                            // console.log("Y " + $(this).data("y"));
-                            // console.log("X " + $(this).data("x"));
-                            // console.log("wight " + $(this).width() / 2);
-                            // console.log("DX " + dx);
-                            // console.log("DY " + dy);
-
                             El.removeClass("transition");
-
                             return setTimeout(function () {
-                                // console.log("ЦШВПРН" + El.width());
-
-                                // console.log("X0 " + x0);
-                                // // console.log("X " + $(this).data("x"));
-                                // // console.log("wight " + $(this).width() / 2);
-                                // console.log("DX " + dx);
-                                // console.log("DY " + dy);
-
                                 return Math.sqrt(dx * dx + dy * dy) < El.width() ?
                                     (function () {
                                         El.css({
                                             left: x0 - dx - dw + "px",
                                             top: y0 - dy - dw + "px"
                                         });
-                                    })() : (function () {
-
+                                    })() :
+                                    (function () {
                                         El.addClass("transition");
                                         El.css({
                                             left: x0 - dw + "px",
                                             top: y0 - dw + "px"
                                         });
                                     })();
-
-                            }, 15);
+                            }, 50);
                         },
                         function () {
-                            let El = $(this);
                             const x0 = El.data("x"),
                                 y0 = El.data("y");
                             El.css({
